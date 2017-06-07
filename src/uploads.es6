@@ -40,6 +40,24 @@ module.exports = (function() {
             }
         },
 
+        'checkDirFromParams': function(dirPath, paramName) {
+            var Uploads = this;
+            return function(req, res, next) {
+
+                if (!fs.existsSync(path.join(dirPath, req.params[paramName]))) {
+                    Uploads.mkdirSync(path.join(dirPath, req.params[paramName]), function(err) {
+                        if (err) {
+                            res.send( { success: false, 'error': err } );
+                            return;
+                        }
+                        next();
+                    });
+                } else {
+                    next();
+                }
+            }
+        },
+
         'copyFiles': function(oFiles, previousPath, DestinyPath, cb) {
             if (oFiles !== undefined && oFiles.length > 0) {
                 for (files in oFiles) {
@@ -221,6 +239,33 @@ module.exports = (function() {
             } catch (err) {
                 callback(err);
             }
+        },
+
+        'uploadToS3': function(params, cb) {
+            let options = {
+                s3Options: {
+                    accessKeyId: params.s3['access-key-id'],
+                    secretAccessKey: params.s3['secret-access-key'],
+                    region: params.s3['region']
+                }
+            };
+            let client = s3.createClient(options);
+
+            let s3params = {
+                localFile: params.localFile,
+
+                s3Params: {
+                    Bucket: params.s3['bucket'],
+                    Key: params.saveAsFile,
+                },
+            };
+            let uploader = client.uploadFile(s3params);
+            uploader.on('error', function(err) {
+                cb(new Error('Hubo un error al subir la imagen.'));
+            });
+            uploader.on('end', function() {
+                cb(null, params.saveAsFile);
+            });
         }
 
     }
