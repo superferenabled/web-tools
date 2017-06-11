@@ -1,6 +1,6 @@
 {
   "name": "sfenbld-web-tools",
-  "version": "1.0.14",
+  "version": "1.0.18",
   "description": "web tools for mongodb-expressjs api solution",
   "main": "lib/index.js",
   "scripts": {
@@ -25,6 +25,7 @@
     "rand-token": "^0.3.0",
     "request": "^2.81.0",
     "request-promise-any": "^1.0.4",
+    "s3": "4.4.0",
     "uuid": "^3.0.1"
   },
   "devDependencies": {

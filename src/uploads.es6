@@ -1,4 +1,5 @@
 var fs = require('fs'),
+    s3 = require('s3'),
     path = require('path'),
     uuid = require('uuid'),
     request = require('request'),
@@ -225,10 +226,10 @@ module.exports = (function() {
             }
         },
 
-        'downloadImage': function(uri, callback) {
+        'downloadImage': function(uri, newName, callback) {
             try {
                 request.head(uri, function(err, res, body) {
-                    var fileName = randtoken.generate(32) + '.jpg',
+                    var fileName = newName,
                         writeTo = path.join('public', 'resources', 'tmp', fileName);
                     request(uri)
                         .pipe(fs.createWriteStream(writeTo))
