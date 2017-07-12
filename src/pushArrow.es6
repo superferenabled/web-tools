@@ -1,8 +1,8 @@
 import ArrowDB from 'arrowdb';
 import mongoose from 'mongoose';
 
-//const arrowDBApp = new ArrowDB('aDltAONfs9jIwrhBrRxqzfb7k9FSbfWx'); //desarrollo
-//const arrowDBApp = new ArrowDB('dBej3VguM1fnMnPuJnrtlqkD2LYRWHWO'); //produccion
+//const arrowDBApp = new ArrowDB('AJceOUFZ9yPVvp5rQ7LpDyOOr5dOopZ0'); //desarrollo
+//const arrowDBApp = new ArrowDB('nsJi3JGHGLsqpWfhCtLw61ESPZEie3pz'); //produccion
 //const Plans = mongoose.model('Plans');
 //const UsersApp = mongoose.model('UsersApp');
 
@@ -17,7 +17,7 @@ class Push {
     static UsersApp;
     static arrowDBApp;
 
-    static init(params){
+    static init(params) {
         Push.Plans = params.Plans;
         Push.UsersApp = params.UsersApp;
         Push.arrowDBApp = new ArrowDB(params.arrowApiKey);
