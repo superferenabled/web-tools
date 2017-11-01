@@ -1,6 +1,6 @@
 import colors from 'colors';
 
-class LogoPrompt {
+export default class LogoPrompt {
 
     static drawInitArt () {
 
@@ -33,5 +33,3 @@ class LogoPrompt {
     }
 
 }
-
-module.exports = LogoPrompt;

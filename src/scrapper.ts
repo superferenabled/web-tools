@@ -1,24 +1,24 @@
-import mongoose from 'mongoose';
+import * as mongoose from 'mongoose';
 import 'any-promise/register/q';
-import rp from 'request-promise-any';
-import Q from 'q';
+import * as rp from 'request-promise-any';
+import * as Q from 'q';
 
-class Scrapper {
+export default class Scrapper {
 
-    static getCities(state, cb) {
+    static getCities(state, cb): void {
         let options = {
             uri: 'https://public.opendatasoft.com/api/records/1.0/search/?dataset=ciudades-de-mexico&rows=0&start=1&facet=name_1&facet=name_2&refine.name_1=' + state,
             json: true // Automatically parses the JSON string in the response
         };
 
-        let arrPetitions = [],
-            arrResults = [];
+        let arrPetitions: any = [],
+            arrResults: any = [];
         rp(options)
             .then(function (cities) {
                 console.log(cities.nhits);
                 let steps = Math.ceil(cities.nhits / 5);    
                 for (let rows = 0; rows < steps; rows++) {
-                    let request = rp({
+                    let request: any = rp({
                         uri: 'https://public.opendatasoft.com/api/records/1.0/search/?dataset=ciudades-de-mexico&rows=5&start=' + (rows * 5 + 1) + '&facet=name_1&facet=name_2&refine.name_1=' + state, 
                         json: true
                     });

@@ -3,7 +3,6 @@ exports.crud = require('./crud');
 exports.logoPrompt = require('./logoPrompt');
 exports.mailer = require('./mailer');
 exports.processRequest = require('./processRequest');
-exports.pushArrow = require('./pushArrow');
 exports.scrapper = require('./scrapper');
 exports.strings = require('./strings');
 exports.uploads = require('./uploads');

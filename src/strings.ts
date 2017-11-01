@@ -1,4 +1,4 @@
-class Strings {
+export default class Strings {
     /**
      * Pads an specified number of characters before a specified mixed var
      * @param  {var}    mixed       String to be padded
@@ -6,7 +6,7 @@ class Strings {
      * @param  {string} [character] character to be inserted
      * @return {string} Mixed var padded with characters at the beginning
      */
-    static pad (mixed, count, character) {
+    static pad (mixed, count, character): string {
         count = count || 4;
         character = character || '0';
         mixed = "" + mixed;
@@ -14,7 +14,7 @@ class Strings {
         return pad.substring(0, pad.length - mixed.length) + mixed;
     }
 
-    static repeat (mixed, count) {
+    static repeat (mixed, count): string {
         return new Array( count + 1 ).join( mixed );
     }
 
@@ -23,7 +23,7 @@ class Strings {
      * @param  {string} s The string to be processed
      * @return {string}   The clean string
      */
-    static clean (s) {
+    static clean (s): string {
         return ('string' != typeof s) ? '' : s.trim();
     }
 }

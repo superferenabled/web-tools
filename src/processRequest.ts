@@ -1,11 +1,11 @@
-import deepMerge from 'deepmerge';
-import path from 'path';
-import Validations from './validations.js';
-import Uploads from './uploads.js';
+import * as deepMerge from 'deepmerge';
+import * as path from 'path';
+import * as Validations from './validations';
+import * as Uploads from './uploads';
 
-class ProcessRequest {
+export default class ProcessRequest {
 
-    static extractDataRequest(req, extraData) {
+    static extractDataRequest(req, extraData): any {
 
         let oRequest, rawData, outData;
         extraData = extraData || {};
@@ -22,10 +22,9 @@ class ProcessRequest {
 
     }
 
-    static cleanQueryOptions(options) {
+    static cleanQueryOptions(options): any {
 
         let key;
-
         options.where   = (typeof options.where !== undefined && typeof options.where === 'object') ? options.where : {};
         options.project = (typeof options.project !== undefined && typeof options.project === 'object') ? options.project : {};
         options.sort    = (typeof options.sort !== undefined && typeof options.sort === 'object') ? options.sort : {};
@@ -39,19 +38,18 @@ class ProcessRequest {
         for(key in options.sort) {
             options.sort[key] = isNaN(parseInt(options.sort[key])) ? 1 : (parseInt(options.sort[key]) === 1 ? 1 : -1);
         }
-
         return options;
 
     }
 
-    static processPicture(Model, doc, fieldName, cb) { // eliminar el uso de esta funcion en el futuro, por que ya no hace nada
+    static processPicture(Model, doc, fieldName, cb): void { // eliminar el uso de esta funcion en el futuro, por que ya no hace nada
         cb({
             'success': true,
             'doc': doc
         });
     }
 
-    static processPicture2(Model, doc, fieldName, cb) { // eliminar el uso de esta funcion en el futuro, por que ya no hace nada
+    static processPicture2(Model, doc, fieldName, cb): void { // eliminar el uso de esta funcion en el futuro, por que ya no hace nada
         cb({
             'success': true,
             'doc': doc
@@ -59,5 +57,3 @@ class ProcessRequest {
     }
 
 }
-
-module.exports = ProcessRequest;

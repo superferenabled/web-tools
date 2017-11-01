@@ -1,8 +1,8 @@
 import less from 'less';
-import colors from 'colors';
-import fs from 'fs';
+import * as colors from 'colors';
+import * as fs from 'fs';
 
-class Compilators{
+export default class Compilators{
 
     static lessCompile(params) {
         if(fs.existsSync(params.appPath + '/../' + params.frontendDir + '/' + params.lessDir + '/styles.less')) {
@@ -31,5 +31,3 @@ class Compilators{
         }
     }
 }
-
-module.exports = Compilators;

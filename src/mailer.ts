@@ -1,56 +1,77 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var nodemailer_1 = require("nodemailer");
-var nodemailer_smtp_transport_1 = require("nodemailer-smtp-transport");
-var email_templates_1 = require("email-templates");
-var path = require("path");
-var Mailer = /** @class */ (function () {
-    function Mailer() {
-    }
-    Mailer.sendAsHTML = function (to, subject, content, cb) {
+import nodemailer from 'nodemailer';
+import smtpTransport from 'nodemailer-smtp-transport';
+import emailTemplates from 'email-templates';
+import * as path from 'path';
+
+export default class Mailer {
+
+    static templatesDir = path.resolve(__dirname, '..', 'templates');
+
+    static transporter = nodemailer.createTransport(
+        smtpTransport({
+            service: 'go-in.mx',
+            name: '[127.0.0.1]',
+            host: 'mail.go-in.mx',
+            port: 465,
+            secure: true,
+            tls: {
+                rejectUnauthorized: false
+            },
+            auth: {
+                user: 'no-response@go-in.mx',
+                pass: 'E1cg#)6Jevc6'
+            }
+        })
+    );
+
+    static locals = {
+        email: 'no-response@go-in.mx',
+        name: {
+            first: 'Sin',
+            last: 'Respuesta'
+        }
+    };
+
+    static sendAsHTML(to, subject, content, cb): void {
         //console.log(this.transporter.transporter.options)
         Mailer.transporter.sendMail({
             'from': 'no-response@go-in.mx',
             'to': to,
             'subject': subject,
             'html': content
-        }, function (err, info) {
-            if (err) {
+        }, function(err, info) {
+            if(err){
                 cb(err);
-            }
-            else {
+            } else {
                 cb(null, info);
             }
-        });
+        })
     };
-    ;
-    Mailer.sendEmail = function (users, subject, replyTo, fromName, templateName, attachments, data, cb) {
+
+    static sendEmail (users, subject, replyTo, fromName, templateName, attachments, data, cb): void {
         //console.log(arguments)
-        var messageStatus = [];
+        let messageStatus: any = [];
         replyTo = replyTo || 'no-response@go-in.mx';
         fromName = fromName || 'Soporte de GOIN';
         //console.log(users, Mailer.templatesDir)
-        email_templates_1.default(Mailer.templatesDir, { open: '{{', close: '}}' }, function (err, template) {
+        emailTemplates(Mailer.templatesDir, { open: '{{', close: '}}' }, function(err, template) {
             //console.log(users)
             if (err) {
                 cb(err);
-            }
-            else {
+            } else {
                 // Load the template and send the emails
-                template(templateName, true, function (err, batch) {
-                    if (err) {
+                template(templateName, true, function(err, batch) {
+                    if(err) {
                         cb(err);
                         return;
-                    }
-                    else {
-                        for (var key in users) {
-                            batch(data, Mailer.templatesDir, function (err, html, text) {
+                    } else {
+                        for(var key in users) {
+                            batch(data, Mailer.templatesDir, function(err, html, text) {
                                 if (err) {
                                     //console.log('Before_err:',err)
                                     cb(err);
                                     return;
-                                }
-                                else {
+                                } else {
                                     //console.log(users[key].email);
                                     Mailer.transporter.sendMail({
                                         'from': fromName + ' ' + '<no-response@go-in.mx>',
@@ -62,49 +83,28 @@ var Mailer = /** @class */ (function () {
                                         //'generateTextFromHTML': true,
                                         //'text': generatextFromHTML,
                                         'attachments': attachments
-                                    }, function (err, responseStatus) {
+                                    }, function(err, responseStatus) {
                                         if (err) {
                                             cb(err);
                                             //console.log('err:',err);
-                                        }
-                                        else {
+                                        } else {
                                             //console.log('bien: ', responseStatus);
                                             cb(null);
                                         }
-                                    });
+                                    })
                                 }
                             });
                         }
                     }
-                });
+                })
             }
-        });
-    };
-    Mailer.templatesDir = path.resolve(__dirname, '..', 'templates');
-    Mailer.transporter = nodemailer_1.default.createTransport(nodemailer_smtp_transport_1.default({
-        service: 'go-in.mx',
-        name: '[127.0.0.1]',
-        host: 'mail.go-in.mx',
-        port: 465,
-        secure: true,
-        tls: {
-            rejectUnauthorized: false
-        },
-        auth: {
-            user: 'no-response@go-in.mx',
-            pass: 'E1cg#)6Jevc6'
-        }
-    }));
-    Mailer.locals = {
-        email: 'no-response@go-in.mx',
-        name: {
-            first: 'Sin',
-            last: 'Respuesta'
-        }
-    };
-    return Mailer;
-}());
-exports.default = Mailer;
+        })
+    }
+
+}
+
+
+
 /*
 
 
@@ -159,3 +159,7 @@ emailTemplates(templatesDir, function(err, template) {
 });
 
 */
+
+
+
+

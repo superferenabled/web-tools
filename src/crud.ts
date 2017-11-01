@@ -1,8 +1,8 @@
-import reqProcessor from './processRequest.js';
-import mongoose from 'mongoose';
+import ProcessRequest from './processRequest';
+import * as mongoose from 'mongoose';
 let ObjectId = mongoose.Types.ObjectId;
 
-class CRUD {
+export default class CRUD {
 
     static create(model, req, extraData, cb) {
 
@@ -10,7 +10,7 @@ class CRUD {
         cb = cb || function(){};
         extraData = extraData || {};
 
-        data = reqProcessor.extractDataRequest(req, extraData);
+        data = ProcessRequest.extractDataRequest(req, extraData);
 
         model.create(data, function (err, doc) {
             if (err) {
@@ -28,8 +28,8 @@ class CRUD {
         cb = cb || function(){};
         extraData = extraData || {};
 
-        data = reqProcessor.extractDataRequest(req, extraData);
-        data = reqProcessor.cleanQueryOptions(data);
+        data = ProcessRequest.extractDataRequest(req, extraData);
+        data = ProcessRequest.cleanQueryOptions(data);
 
         query = model.find(data.where);
 
@@ -59,10 +59,10 @@ class CRUD {
         cb = cb || function(){};
         extraData = extraData || {};
 
-        data = reqProcessor.extractDataRequest(req, extraData);
+        data = ProcessRequest.extractDataRequest(req, extraData);
         modelID = req.params.id;
         query = { _id: modelID };
-        //updateInfo = reqProcessor.extractDataRequest(req, extraData);
+        //updateInfo = ProcessRequest.extractDataRequest(req, extraData);
         //data = (typeof updateInfo.data !== undefined && typeof updateInfo.data === 'object') ? updateInfo.data : {};
         //query = (typeof updateInfo.queryUpdate !== undefined && typeof updateInfo.queryUpdate === 'object') ? updateInfo.queryUpdate : {};
 
@@ -108,7 +108,7 @@ class CRUD {
 
         modelID = req.params.id;
         query = { _id: modelID };
-        //query = reqProcessor.extractDataRequest(req, extraData);
+        //query = ProcessRequest.extractDataRequest(req, extraData);
 
         if(modelID !== undefined) {
             model.remove(query, function (err, post) {
@@ -125,5 +125,3 @@ class CRUD {
     }
 
 }
-
-module.exports = CRUD;
