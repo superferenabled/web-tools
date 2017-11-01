@@ -1,14 +1,11 @@
 import * as deepMerge from 'deepmerge';
 import * as path from 'path';
-import * as Validations from './validations';
-import * as Uploads from './uploads';
 
-export default class ProcessRequest {
+export class ProcessRequest {
 
-    static extractDataRequest(req, extraData): any {
+    static extractDataRequest(req, extraData:any = {}): any {
 
         let oRequest, rawData, outData;
-        extraData = extraData || {};
 
         if(req.hasOwnProperty('_readableState')) { //verify that req is an instance of Request express object
             oRequest = req.method === 'GET' ? req.query : req.body;

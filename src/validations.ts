@@ -2,7 +2,7 @@ import * as atob from 'atob';
 import * as mongoose from 'mongoose';
 let ObjectId = mongoose.Types.ObjectId;
 
-export default class Validations {
+export class Validations {
 
     static email(emailText) {
         var emailRegex = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;

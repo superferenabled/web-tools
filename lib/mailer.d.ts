@@ -1,4 +1,4 @@
-export default class Mailer {
+export declare class Mailer {
     static templatesDir: string;
     static transporter: any;
     static locals: {

@@ -1,6 +1,6 @@
 {
   "name": "sfenbld-web-tools",
-  "version": "1.0.20",
+  "version": "1.0.25",
   "description": "web tools for mongodb-expressjs api solution",
   "main": "lib/index",
   "types": "lib/index.d",
@@ -30,13 +30,10 @@
     "uuid": "^3.0.1"
   },
   "devDependencies": {
-    "@types/express": "^4.0.37",
     "@types/mongodb": "^2.2.14",
     "@types/mongoose": "^4.7.24",
     "@types/node": "^8.0.46",
-    "copyfiles": "^1.2.0",
     "nodemon": "^1.11.0",
-    "ts-node": "^3.3.0",
     "typescript": "^2.5.3"
   }
 }

@@ -3,7 +3,7 @@ import 'any-promise/register/q';
 import * as rp from 'request-promise-any';
 import * as Q from 'q';
 
-export default class Scrapper {
+export class Scrapper {
 
     static getCities(state, cb): void {
         let options = {
@@ -51,5 +51,3 @@ export default class Scrapper {
     }
 
 }
-
-module.exports = Scrapper;

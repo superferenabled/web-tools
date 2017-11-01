@@ -1,4 +1,4 @@
-export default class Strings {
+export class Strings {
     /**
      * Pads an specified number of characters before a specified mixed var
      * @param  {var}    mixed       String to be padded
@@ -27,5 +27,3 @@ export default class Strings {
         return ('string' != typeof s) ? '' : s.trim();
     }
 }
-
-module.exports = Strings;

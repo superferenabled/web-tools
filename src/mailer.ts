@@ -1,9 +1,9 @@
-import nodemailer from 'nodemailer';
-import smtpTransport from 'nodemailer-smtp-transport';
-import emailTemplates from 'email-templates';
+import * as nodemailer from 'nodemailer';
+import * as smtpTransport from 'nodemailer-smtp-transport';
+import * as emailTemplates from 'email-templates';
 import * as path from 'path';
 
-export default class Mailer {
+export class Mailer {
 
     static templatesDir = path.resolve(__dirname, '..', 'templates');
 

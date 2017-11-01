@@ -7,7 +7,7 @@ import * as RT from 'rand-token';
 
 let randtoken = RT.generator();
 
-export default class Uploads {
+export class Uploads {
 
     static resourcesPath = path.join(__dirname, '..', 'public', 'app', 'resources');
 
@@ -209,7 +209,7 @@ export default class Uploads {
         }
     }
 
-    downloadImage(uri, newName, callback): void {
+    static downloadImage(uri, newName, callback): void {
         try {
             request.head(uri, function(err, res, body) {
                 var fileName = newName,
@@ -225,7 +225,7 @@ export default class Uploads {
         }
     }
 
-    uploadToS3(params, cb): void {
+    static uploadToS3(params, cb): void {
         let options = {
             s3Options: {
                 accessKeyId: params.s3['access-key-id'],

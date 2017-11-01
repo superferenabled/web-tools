@@ -1,9 +1,9 @@
-exports.compilators = require('./compilators');
-exports.crud = require('./crud');
-exports.logoPrompt = require('./logoPrompt');
-exports.mailer = require('./mailer');
-exports.processRequest = require('./processRequest');
-exports.scrapper = require('./scrapper');
-exports.strings = require('./strings');
-exports.uploads = require('./uploads');
-exports.validations = require('./validations');
+export * from './compilators';
+export * from './crud';
+export * from './logoPrompt';
+export * from './mailer';
+export * from './processRequest';
+export * from './scrapper';
+export * from './strings';
+export * from './uploads';
+export * from './validations';

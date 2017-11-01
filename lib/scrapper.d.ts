@@ -1,4 +1,4 @@
 import 'any-promise/register/q';
-export default class Scrapper {
+export declare class Scrapper {
     static getCities(state: any, cb: any): void;
 }

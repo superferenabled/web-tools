@@ -1,4 +1,4 @@
-export default class Strings {
+export declare class Strings {
     /**
      * Pads an specified number of characters before a specified mixed var
      * @param  {var}    mixed       String to be padded

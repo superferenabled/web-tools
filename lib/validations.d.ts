@@ -1,4 +1,4 @@
-export default class Validations {
+export declare class Validations {
     static email(emailText: any): boolean;
     static base64(str: any): boolean;
     static objectId(str: any): boolean;

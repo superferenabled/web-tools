@@ -1,6 +1,6 @@
-import colors from 'colors';
+import * as colors from 'colors';
 
-export default class LogoPrompt {
+export class LogoPrompt {
 
     static drawInitArt () {
 

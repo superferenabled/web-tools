@@ -1,4 +1,4 @@
-export default class Uploads {
+export declare class Uploads {
     static resourcesPath: string;
     static mkdirSync(path: any, cb: any): void;
     static checkDir(dirPath: any): any;
@@ -9,6 +9,6 @@ export default class Uploads {
     static replaceFile(files: any, destination: any, previousPath: any, previousFile: any, cb: any): void;
     static removeFile(path: any, cb: any): void;
     static saveBase64ToImage(strB64: any, dir: any): any;
-    downloadImage(uri: any, newName: any, callback: any): void;
-    uploadToS3(params: any, cb: any): void;
+    static downloadImage(uri: any, newName: any, callback: any): void;
+    static uploadToS3(params: any, cb: any): void;
 }

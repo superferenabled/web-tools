@@ -1,8 +1,8 @@
-import ProcessRequest from './processRequest';
+import { ProcessRequest } from './index';
 import * as mongoose from 'mongoose';
 let ObjectId = mongoose.Types.ObjectId;
 
-export default class CRUD {
+export class CRUD {
 
     static create(model, req, extraData, cb) {
 
