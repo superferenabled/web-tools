@@ -1,6 +1,6 @@
 {
   "name": "sfenbld-web-tools",
-  "version": "1.0.25",
+  "version": "1.0.37",
   "description": "web tools for mongodb-expressjs api solution",
   "main": "lib/index",
   "types": "lib/index.d",
@@ -16,7 +16,8 @@
     "atob": "^2.0.3",
     "colors": "^1.1.2",
     "deepmerge": "^2.0.0",
-    "email-templates": "^3.1.5",
+    "ejs": "^2.5.7",
+    "email-templates": "^3.1.7",
     "less": "^2.7.2",
     "mongoose": "^4.10.2",
     "nodemailer": "^4.0.1",

@@ -9,5 +9,5 @@ export declare class Mailer {
         };
     };
     static sendAsHTML(to: any, subject: any, content: any, cb: any): void;
-    static sendEmail(users: any, subject: any, replyTo: any, fromName: any, templateName: any, attachments: any, data: any, cb: any): void;
+    static sendEmail(users: any, subject: any, replyTo: string | undefined, fromName: string | undefined, templateName: any, attachments: any, data: any, cb: any): void;
 }
