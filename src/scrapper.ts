@@ -1,6 +1,4 @@
 import * as mongoose from 'mongoose';
-import 'any-promise/register/q';
-import * as rp from 'request-promise-any';
 import * as Q from 'q';
 
 export class Scrapper {
@@ -10,9 +8,10 @@ export class Scrapper {
             uri: 'https://public.opendatasoft.com/api/records/1.0/search/?dataset=ciudades-de-mexico&rows=0&start=1&facet=name_1&facet=name_2&refine.name_1=' + state,
             json: true // Automatically parses the JSON string in the response
         };
-
+        require('any-promise/register/q');
         let arrPetitions: any = [],
-            arrResults: any = [];
+            arrResults: any = [],
+            rp = require('request-promise-any');
         rp(options)
             .then(function (cities) {
                 console.log(cities.nhits);
