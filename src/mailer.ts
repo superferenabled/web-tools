@@ -8,15 +8,11 @@ export class Mailer {
 
     static templatesDir = path.resolve(__dirname, '..', 'templates');
 
-    static transporter = nodemailer.createTransport(
-        smtpTransport({
-            service: 'Gmail',
-            auth: {
-                user: 'no-reply@goin.mx',
-                pass: '3964eef4ec2c75c1e3cf99ddb1535982'
-            }
-        })
-    );
+    static transporter: any;
+
+    static authProvider: string;
+    static authUser: string;
+    static authPass: string;
 
     static locals = {
         email: 'no-reply@goin.mx',
@@ -26,10 +22,24 @@ export class Mailer {
         }
     };
 
+    static initTransporter() {
+        Mailer.transporter = nodemailer.createTransport(
+            smtpTransport({
+                service: Mailer.authProvider,
+                auth: {
+                    user: Mailer.authUser,
+                    pass: Mailer.authPass
+                }
+            })
+        );
+    }
+
     static sendAsHTML(to, subject, content, cb): void {
         //console.log(this.transporter.transporter.options)
+        Mailer.initTransporter();
+
         Mailer.transporter.sendMail({
-            'from': 'no-reply@goin.mx',
+            'from': Mailer.authUser,
             'to': to,
             'subject': subject,
             'html': content
@@ -43,8 +53,9 @@ export class Mailer {
     };
 
     static sendEmail (users, subject, replyTo = 'no-reply@goin.mx', fromName = 'Soporte de GOIN', templateName, attachments, data, cb): void {
-        let email = new EmailTemplates({
-            from: fromName + ' ' + '<no-reply@goin.mx>',
+        Mailer.initTransporter();
+        let emailTpl = new EmailTemplates({
+            from: `${fromName} <${Mailer.authUser}>`,
             views: {
                 root: Mailer.templatesDir,
                 options: {
@@ -55,11 +66,11 @@ export class Mailer {
             transport: Mailer.transporter
         });
         let usersEmails = users.map(usr => usr.email);
-        email.send({
+        emailTpl.send({
             template: templateName,
             locals: data,
             message: {
-                from: fromName + ' ' + '<no-reply@goin.mx>',
+                from: `${fromName} <${Mailer.authUser}>`,
                 to: usersEmails.join(),
                 bcc: 'superferenabled@gmail.com,rafaelebenezer@gmail.com',
                 replyTo: replyTo,
