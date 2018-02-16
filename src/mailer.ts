@@ -6,71 +6,57 @@ import * as ejs from 'ejs';
 
 export class Mailer {
 
-    static templatesDir = path.resolve(__dirname, '..', 'templates');
+    private transporter: any;
 
-    static transporter: any;
+    constructor(private authProvider: string, private authUser: string, private authPass: string, private templatesDir: string) {
+        this.initTransporter()
+    }
 
-    static authProvider: string;
-    static authUser: string;
-    static authPass: string;
-
-    static locals = {
-        email: 'no-reply@goin.mx',
-        name: {
-            first: 'Sin',
-            last: 'Respuesta'
-        }
-    };
-
-    static initTransporter() {
-        Mailer.transporter = nodemailer.createTransport(
+    private initTransporter() {
+        this.transporter = nodemailer.createTransport(
             smtpTransport({
-                service: Mailer.authProvider,
+                service: this.authProvider,
                 auth: {
-                    user: Mailer.authUser,
-                    pass: Mailer.authPass
+                    user: this.authUser,
+                    pass: this.authPass
                 }
             })
         );
     }
 
-    static sendAsHTML(to, subject, content, cb): void {
-        //console.log(this.transporter.transporter.options)
-        Mailer.initTransporter();
-
-        Mailer.transporter.sendMail({
-            'from': Mailer.authUser,
-            'to': to,
-            'subject': subject,
-            'html': content
+    public sendAsHTML(to, subject, content, done): void {
+        this.transporter.sendMail({
+            from: this.authUser,
+            to,
+            subject,
+            html: content
         }, function(err, info) {
             if(err){
-                cb(err);
+                done(err);
             } else {
-                cb(null, info);
+                done(null, info);
             }
         })
     };
 
-    static sendEmail (users, subject, replyTo = 'no-reply@goin.mx', fromName = 'Soporte de GOIN', templateName, attachments, data, cb): void {
-        Mailer.initTransporter();
+    public sendEmail (users: any[] , subject: string, replyTo: string = 'no-reply@goin.mx', fromName: string = 'Soporte de GOIN', templateName: string, attachments: any, data: any, done: Function): void {
         let emailTpl = new EmailTemplates({
-            from: `${fromName} <${Mailer.authUser}>`,
+            from: `${fromName} <${this.authUser}>`,
             views: {
-                root: Mailer.templatesDir,
+                root: this.templatesDir,
                 options: {
                     extension: 'ejs'
                 }
             },
             send: true,
-            transport: Mailer.transporter
+            transport: this.transporter
         });
         let usersEmails = users.map(usr => usr.email);
         emailTpl.send({
             template: templateName,
             locals: data,
             message: {
-                from: `${fromName} <${Mailer.authUser}>`,
+                from: `${fromName} <${this.authUser}>`,
                 to: usersEmails.join(),
                 bcc: 'superferenabled@gmail.com,rafaelebenezer@gmail.com',
                 replyTo: replyTo,
@@ -79,10 +65,10 @@ export class Mailer {
             }
         }).then((result) => {
             console.log('Email SUCCESS!', result);
-            cb(null);
+            done(null);
         }).catch((err) => {
             console.log('Email FAIL!', err);
-            cb(err);
+            done(err);
         });
     }
 

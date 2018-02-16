@@ -1,6 +1,6 @@
 {
   "name": "sfenbld-web-tools",
-  "version": "1.0.39",
+  "version": "1.0.40",
   "description": "web tools for mongodb-expressjs api solution",
   "main": "lib/index",
   "types": "lib/index.d",

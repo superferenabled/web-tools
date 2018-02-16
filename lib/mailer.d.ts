@@ -1,17 +1,11 @@
 export declare class Mailer {
-    static templatesDir: string;
-    static transporter: any;
-    static authProvider: string;
-    static authUser: string;
-    static authPass: string;
-    static locals: {
-        email: string;
-        name: {
-            first: string;
-            last: string;
-        };
-    };
-    static initTransporter(): void;
-    static sendAsHTML(to: any, subject: any, content: any, cb: any): void;
-    static sendEmail(users: any, subject: any, replyTo: string | undefined, fromName: string | undefined, templateName: any, attachments: any, data: any, cb: any): void;
+    private authProvider;
+    private authUser;
+    private authPass;
+    private templatesDir;
+    private transporter;
+    constructor(authProvider: string, authUser: string, authPass: string, templatesDir: string);
+    private initTransporter();
+    sendAsHTML(to: any, subject: any, content: any, done: any): void;
+    sendEmail(users: any[], subject: string, replyTo: string | undefined, fromName: string | undefined, templateName: string, attachments: any, data: any, done: Function): void;
 }
